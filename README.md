@@ -2,7 +2,7 @@
 
 ## 项目简介
 
-这是一个基于Python的单词识别与自动答题系统，专为在线英语学习平台设计。系统能够自动识别网页中的英语题目，从数据库中查询正确答案，并自动选择答案完成答题过程。
+这是一个基于Python的单词识别与自动答题系统，专为杭州电子科技大学英语答题https://skl.hduhelp.com/#/english/list设计。系统能够自动识别网页中的英语题目，从数据库中查询正确答案，并自动选择答案完成答题过程。
 
 ## 功能特点
 
@@ -21,11 +21,7 @@ word_identification_2.1/
 ├── screen_debug.py         # 屏幕区域调试工具
 ├── screen_tap.py           # 自动点击与测试工具
 ├── README.md               # 项目说明文档
-├── requirements.txt        # 项目依赖文件
-├── Nonew/                  # 采集过程中未识别记录目录
-├── __pycache__/            # Python缓存目录
-├── templates/              # Web模板目录(当前为空)
-└── word_identification_venv/  # Python虚拟环境目录
+└── requirements.txt        # 项目依赖文件
 ```
 
 ## 技术栈
