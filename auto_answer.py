@@ -178,7 +178,7 @@ def select(page, answer):
 def answer_question_loop(page):
     
     question_count = 1
-    for _ in range(10):
+    for _ in range(100):
         print(f"\n=== 题目 {question_count} ===")
         word, options = detect_question(page)
         
@@ -243,8 +243,8 @@ if __name__ == '__main__':
     print("自动化答题脚本启动...")
     
     # 固定用户名和密码
-    username = '24051116'
-    password = 'YKf_050907'
+    username = '24051109'
+    password = 'Xsdjsg1943@'
     
     with sync_playwright() as p:
         # 初始化浏览器配置
@@ -270,13 +270,13 @@ if __name__ == '__main__':
                 # 注意：这里需要根据实际的页面结构调整选择器
                 try:
                     # 等待登录表单元素出现
-                    page.wait_for_selector("input[name='username']", timeout=10000)
-                    page.wait_for_selector("input[name='passwordPre']", timeout=10000)
-                    page.wait_for_selector("button:has-text('登    录')", timeout=10000)
+                    page.wait_for_selector("input[name='username'][maxlength='200'][autocomplete='username']", timeout=2000)
+                    page.wait_for_selector("input[type='password'][maxlength='200'][autocomplete='new-password']", timeout=2000)
+                    page.wait_for_selector("button:has-text('登    录')", timeout=2000)
                     
                     # 填写用户名和密码
-                    page.fill("input[name='username']", username)
-                    page.fill("input[name='passwordPre']", password)
+                    page.fill("input[name='username'][maxlength='200'][autocomplete='username']", username)
+                    page.fill("input[type='password'][maxlength='200'][autocomplete='new-password']", password)
                     
                     # 点击登录按钮
                     page.click("button:has-text('登    录')")
@@ -290,20 +290,25 @@ if __name__ == '__main__':
                     #page.click("span.van-tab__text.van-tab__text--ellipsis:has-text('考试')")
                     #print("已点击考试标签")
                     
+                    page.wait_for_selector("div.van-tabbar-item__text:has-text('我')", timeout=500)
+                    page.click("div.van-tabbar-item__text:has-text('我')")
+                    print("已点击'我'标签")
                     # 点击考试标签
-                    page.wait_for_selector("span.van-tab__text.van-tab__text--ellipsis:has-text('自测')", timeout=10000)
-                    page.click("span.van-tab__text.van-tab__text--ellipsis:has-text('自测')")
-                    print("已点击自测标签")
-
+                    page.wait_for_selector("span.van-grid-item__text:has-text('我爱记单词')", timeout=500)
+                    page.click("span.van-grid-item__text:has-text('我爱记单词')")
+                    print("已点击'我爱记单词'")
                     # 点击开始考试按钮
-                    page.wait_for_selector("button:has-text('开始自测')", timeout=10000)
-                    page.click("button:has-text('开始自测')")
-                    print("已点击开始自测按钮")
-                    
+                    page.wait_for_selector("span.van-tab__text.van-tab__text--ellipsis:has-text('考试')", timeout=300)
+                    page.click("span.van-tab__text.van-tab__text--ellipsis:has-text('考试')")
+                    print("已点击考试标签")
+                    # 点击开始考试按钮
+                    page.wait_for_selector("span.van-button__text:has-text('开始考试')", timeout=300)
+                    page.click("span.van-button__text:has-text('开始考试')")
+                    print("已点击开始考试按钮")
                     # 点击确认开考按钮
-                    #page.wait_for_selector("button:has-text('确认开考')", timeout=10000)
-                    #page.click("button:has-text('确认开考')")
-                    #print("已点击确认开考按钮")
+                    page.wait_for_selector("button:has-text('确认开考')", timeout=300)
+                    page.click("button:has-text('确认开考')")
+                    print("已点击确认开考按钮")
 
                 except Exception as e:
                     print(f"自动登录失败: {str(e)}")
