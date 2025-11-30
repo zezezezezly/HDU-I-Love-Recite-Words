@@ -15,16 +15,17 @@
 ## 项目结构
 
 ```
-e:\word_identification_2.1/
-├── auto_answer.py        # 主程序文件（交互式自动答题）
-├── store_answers.py      # 答案采集与存储工具
-├── screen_debug.py       # 屏幕区域调试工具
-├── screen_tap.py         # 自动点击与测试工具
-├── None/                 # 存储未找到答案的题目截图
-├── Nonew/                # 存储未识别的题目记录
-├── templates/            # 模板文件夹
-├── __pycache__/          # Python编译缓存
-└── word_identification_venv/  # 虚拟环境
+word_identification_2.1/
+├── auto_answer.py          # 自动答题主程序
+├── store_answers.py        # 答案采集与存储工具
+├── screen_debug.py         # 屏幕区域调试工具
+├── screen_tap.py           # 自动点击与测试工具
+├── README.md               # 项目说明文档
+├── requirements.txt        # 项目依赖文件
+├── Nonew/                  # 采集过程中未识别记录目录
+├── __pycache__/            # Python缓存目录
+├── templates/              # Web模板目录(当前为空)
+└── word_identification_venv/  # Python虚拟环境目录
 ```
 
 ## 技术栈
@@ -66,9 +67,18 @@ source word_identification_venv/bin/activate
 ### 3. 安装依赖
 
 ```bash
-pip install playwright mysql-connector-python
-playwright install
+pip install -r requirements.txt
+playwright install chromium
 ```
+
+## 依赖管理
+
+本项目通过`requirements.txt`文件管理依赖，包含以下核心库：
+- `playwright`: 用于网页自动化操作
+- `mysql-connector-python`: 用于数据库连接
+- `Pillow`: 用于图像处理
+
+其他库可根据需要选择性安装。
 
 ### 4. 配置数据库
 
@@ -94,7 +104,7 @@ CREATE INDEX idx_question ON questions(question);
 3. 修改代码中的数据库配置（如果需要）：
 
 ```python
-# 在auto_answer.py和auto_answer_web.py中
+# 在auto_answer.py和store_answers.py中
 # 找到以下代码并根据实际情况修改
 
 db_config = {
@@ -119,30 +129,17 @@ password = 'your_password'
 
 ## 使用方法
 
-### 交互式自动答题（推荐）
+### 自动答题
 
 ```bash
 python auto_answer.py
 ```
 
-此模式下，程序会：
+程序会：
 1. 自动打开浏览器并访问指定网页
 2. 自动检测是否需要登录，如果需要则自动登录
 3. 自动开始答题过程
 4. 答题完成后，提示用户是否继续答题
-
-### Web版自动答题（非交互式）
-
-```bash
-# 设置环境变量（仅Web版需要）
-SET USERNAME=your_username
-SET PASSWORD=your_password
-
-# 运行脚本
-python auto_answer_web.py
-```
-
-此模式为非交互式，适合在服务器或后台运行。
 
 ## 功能详解
 
@@ -237,8 +234,3 @@ print(f"识别到的选项区域D文本: {options[3]}")
 
 # 修改为随机延迟，例如：
 delay = random.uniform(0.5, 1.5)
-```
-
-## 许可证
-
-本项目仅供学习参考，不提供任何形式的许可证。
